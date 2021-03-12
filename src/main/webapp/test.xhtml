@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+       xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+    <h:head>
+        <title>PrimeFaces Test</title>
+        <h:outputScript name="test.js" />
+    </h:head>
+    <h:body>
+    
+    
+ 
+      <h1>#{testView.string} ...</h1>
+      
+      
+      If we use a Colecction (not SortMeta) and sortBy in a Table or TreeTable, user can't 
+      see initial sorted icon and we can't set this initial order, it always defaults to 'desc'.
+      <br/>
+      So, to get PF8.0 and earlier behavior, now  we should just/only set sortOrder in 
+      a column which we want to be initialy sorted (or many if multiple mode) set Table/Treetable sortBy is useless 
+      (at least for Collections).
+   
+      <br/> <br/>
+   
+   
+   
+         Table with DataTable#sortBy (for: name) not initialy sort and can't set DataTable#sortOrder
+        <h:form id="frmTest">
+        
+       <p:dataTable	id="tabelaItens" 	value="#{testView.fl}" var="item" 	  
+					sortBy="#{item.displayName}"  >  
+		 					
+					 <p:column     sortBy="#{item.id}"   filterStyle="display:none" 
+						            filterMatchMode="contains"  styleClass="direita " style="width:150px;"     >  
+								 <f:facet name="header"><h:outputText value="id"/> </f:facet>
+							 	<h:outputText value="#{item.id}"/> 
+					  </p:column> 
+					  
+					  
+					   <p:column     sortBy="#{item.displayName}"   filterStyle="display:none" 
+						            filterMatchMode="contains"  styleClass="direita " style="width:150px;"     >  
+								 <f:facet name="header"><h:outputText value="name"/> </f:facet>
+							 	<h:outputText value="#{item.displayName}"/> 
+					  </p:column> 
+					  
+					   <p:column     sortBy="#{item.url}"   filterStyle="display:none" 
+						            filterMatchMode="contains"  styleClass="direita " style="width:150px;"     >  
+								 <f:facet name="header"><h:outputText value="url"/> </f:facet>
+							 	<h:outputText value="#{item.url}"/> 
+					  </p:column>  
+        
+        </p:dataTable>
+        
+    
+   
+        <br/> <br/>
+         
+           Table with DataTable#sortBy (for: name) not initialy sorted by that column and just because we set one Column#sortOrder
+            (for: id) it becomes initilally sorted by that column, overriding (initial) DataTable#sortBy definitions.
+          <p:dataTable	id="tabelaItensAlt" 	value="#{testView.fl}" var="item" 	  
+					    sortBy="#{item.displayName}"  >  
+			  
+					
+					 <p:column     sortBy="#{item.id}" sortOrder="desc"  filterStyle="display:none" 
+						            filterMatchMode="contains"  styleClass="direita " style="width:150px;"     >  
+								 <f:facet name="header"><h:outputText value="id"/> </f:facet>
+							 	<h:outputText value="#{item.id}"/> 
+					  </p:column> 
+					  
+					  
+					   <p:column     sortBy="#{item.displayName}"   filterStyle="display:none" 
+						            filterMatchMode="contains"  styleClass="direita " style="width:150px;"     >  
+								 <f:facet name="header"><h:outputText value="name"/> </f:facet>
+							 	<h:outputText value="#{item.displayName}"/> 
+					  </p:column> 
+					  
+					   <p:column     sortBy="#{item.url}"    filterStyle="display:none" 
+						            filterMatchMode="contains"  styleClass="direita " style="width:150px;"     >  
+								 <f:facet name="header"><h:outputText value="url"/> </f:facet>
+							 	<h:outputText value="#{item.url}"/> 
+					  </p:column>  
+        
+        </p:dataTable>
+        
+        
+        
+        
+        
+        
+          <br/> <br/>
+          Same occour with p:treeTable
+        <p:treeTable value="#{treeTableView.root}"       var="document"  
+                     sortBy="#{document.name}"  
+                      sortMode="single" allowUnsorting="true" >
+            <f:facet name="header" >
+                  Treetable  with initial sorting problem and cant set Treetable#sortOrder.
+                   If we set a column sortOrder, than it becomes initially sorted
+            </f:facet>
+            
+            
+            <p:column headerText="Name"  sortBy="#{document.name}"  width="100">
+                <h:outputText value="#{document.name}"/>
+            </p:column>
+            
+            
+           <!--   <c:forEach var="i" begin="0"     step="1"   end="5"   >   
+                       
+                       <p:column        style="width: 100px;" width="100" > 
+	                          <f:facet name="header" >   
+						               <h:outputText     value="title #{i}  "  />
+						       </f:facet> 
+						     <h:outputText  value="#{i} value  "  />
+					   </p:column>
+			  </c:forEach>  		      --> 
+            
+                 
+            
+            
+            <p:column headerText="Size"  sortBy="#{document.size}" width="100">
+                <h:outputText value="#{document.size}"/>
+            </p:column>
+            
+            <p:column headerText="Type"  sortBy="#{document.type}" width="100">
+                <h:outputText value="#{document.type}"/>
+            </p:column>
+            <p:column style="width:3rem" width="100">
+                <p:commandButton update=":frmTest:documentPanel" oncomplete="PF('documentDialog').show()"
+                               title="View Detail" icon="pi pi-search"
+                               rendered="false">
+                    <f:setPropertyActionListener value="#{document}" target="#{treeTableView.selectedDocument}"/>
+                </p:commandButton>
+            </p:column>
+        </p:treeTable>
+        
+        
+        
+        
+        
+     
+		       
+			     
+			       
+			        
+            
+        </h:form>
+    </h:body>
+</html>
+
+
+<!--   :forEach var="i" begin="0"  
+			                             end="#{fn:length(relatorioBean.listaPeriodicidade) -1}" step="1"  >
+			                           
+			                             <p:column> 
+									     
+									        <f:facet name="header" >   
+						                         <h:inputText value="#{i}"  maxlength="5" style="width:50px;"/>
+						                   </f:facet> 
+						                   estadio
+									   
+									   </p:column>
+									   
+			    </c:forEach> -->
