@@ -26,7 +26,7 @@
         <h:form id="frmTest">
         
        <p:dataTable	id="tabelaItens" 	value="#{testView.fl}" var="item" 	  
-					sortBy="#{item.displayName}"  >  
+					  >  
 		 					
 					 <p:column     sortBy="#{item.id}"   filterStyle="display:none" 
 						            filterMatchMode="contains"  styleClass="direita " style="width:150px;"     >  
@@ -55,7 +55,7 @@
           <br/> <br/>
           Same occour with p:treeTable
         <p:treeTable value="#{treeTableView.root}"       var="document"  
-                     sortBy="#{document.name}"  
+                     
                       sortMode="single" allowUnsorting="true" >
            
             
