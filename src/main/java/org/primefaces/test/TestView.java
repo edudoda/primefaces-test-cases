@@ -31,7 +31,7 @@ public class TestView implements Serializable {
 	    
 	    @PostConstruct  
 	    public void init() {  
-	        string = "Initial dataTable/treeTable sorting problem"; 
+	        string = "DataTable/treeTable sorting problem due to STATE_SAVING_METHOD = client"; 
 	        fl =  new ArrayList<Avatar>();
 	        fl.add(new Avatar(1, "Joseph", "http://localhost:8080/test1"));
 	        fl.add(new Avatar(2, "Richard", "http://localhost:8080/test2"));

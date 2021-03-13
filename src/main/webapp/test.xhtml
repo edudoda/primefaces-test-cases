@@ -18,18 +18,11 @@
       <h1>#{testView.string} ...</h1>
       
       
-      If we use a Colecction (not SortMeta) and sortBy in a Table or TreeTable, user can't 
-      see initial sorted icon and we can't set this initial order, it always defaults to 'desc'.
+     
       <br/>
-      So, to get PF8.0 and earlier behavior, now  we should just/only set sortOrder in 
-      a column which we want to be initialy sorted (or many if multiple mode) set Table/Treetable sortBy is useless 
-      (at least for Collections).
-   
-      <br/> <br/>
-   
-   
-   
-         Table with DataTable#sortBy (for: name) not initialy sort and can't set DataTable#sortOrder
+      
+    
+         Table with sortBy issue
         <h:form id="frmTest">
         
        <p:dataTable	id="tabelaItens" 	value="#{testView.fl}" var="item" 	  
@@ -56,40 +49,7 @@
         
         </p:dataTable>
         
-    
-   
-        <br/> <br/>
-         
-           Table with DataTable#sortBy (for: name) not initialy sorted by that column and just because we set one Column#sortOrder
-            (for: id) it becomes initilally sorted by that column, overriding (initial) DataTable#sortBy definitions.
-          <p:dataTable	id="tabelaItensAlt" 	value="#{testView.fl}" var="item" 	  
-					    sortBy="#{item.displayName}"  >  
-			  
-					
-					 <p:column     sortBy="#{item.id}" sortOrder="desc"  filterStyle="display:none" 
-						            filterMatchMode="contains"  styleClass="direita " style="width:150px;"     >  
-								 <f:facet name="header"><h:outputText value="id"/> </f:facet>
-							 	<h:outputText value="#{item.id}"/> 
-					  </p:column> 
-					  
-					  
-					   <p:column     sortBy="#{item.displayName}"   filterStyle="display:none" 
-						            filterMatchMode="contains"  styleClass="direita " style="width:150px;"     >  
-								 <f:facet name="header"><h:outputText value="name"/> </f:facet>
-							 	<h:outputText value="#{item.displayName}"/> 
-					  </p:column> 
-					  
-					   <p:column     sortBy="#{item.url}"    filterStyle="display:none" 
-						            filterMatchMode="contains"  styleClass="direita " style="width:150px;"     >  
-								 <f:facet name="header"><h:outputText value="url"/> </f:facet>
-							 	<h:outputText value="#{item.url}"/> 
-					  </p:column>  
-        
-        </p:dataTable>
-        
-        
-        
-        
+     
         
         
           <br/> <br/>
@@ -97,10 +57,7 @@
         <p:treeTable value="#{treeTableView.root}"       var="document"  
                      sortBy="#{document.name}"  
                       sortMode="single" allowUnsorting="true" >
-            <f:facet name="header" >
-                  Treetable  with initial sorting problem and cant set Treetable#sortOrder.
-                   If we set a column sortOrder, than it becomes initially sorted
-            </f:facet>
+           
             
             
             <p:column headerText="Name"  sortBy="#{document.name}"  width="100">
