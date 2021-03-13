@@ -3,9 +3,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.primefaces</groupId>
-    <artifactId>primefaces-test-edu</artifactId>
-    <version>10rc2</version>
-   <!--  <packaging>war</packaging> -->
+    <artifactId>primefaces-test</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
 
     <name>primefaces-test</name>
 
@@ -15,87 +15,25 @@
 
         <owb.version>2.0.21</owb.version>
         <jetty.version>9.4.36.v20210114</jetty.version>
-    </properties>
+    </properties><!-- 11.0.1   -->
 
     <dependencies>
-       <!--  <dependency>
+    
+    
+	 <!--   <dependency>
+		    <groupId>org.eclipse.jetty</groupId>
+		    <artifactId>jetty-maven-plugin</artifactId>
+		    <version>9.4.36.v20210114</version>
+		</dependency>
+     -->
+        <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
-            <version>8.0</version> 10.0.0-RC2
-        </dependency> -->
-        
-     <dependency>
-     <groupId>com.github.primefaces</groupId>
-     <artifactId>primefaces</artifactId>
-     <version>master-SNAPSHOT</version>
- </dependency>
-        
-        
-        <dependency>
-		    <groupId>javax.enterprise</groupId>
-		    <artifactId>cdi-api</artifactId>
-		    <version>1.2</version>
-		</dependency>
-        
-         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>4.0.1</version>
-            <scope>provided</scope>
+            <version>10.0.0</version>
         </dependency>
-        <dependency>
-            <groupId>javax.el</groupId>
-            <artifactId>javax.el-api</artifactId>
-            <version>3.0.0</version>
-            <scope>provided</scope>
-        </dependency>
-        
-        
-       <!--  spring -->
-       			
-					  
-		  <dependency>
-			    <groupId>org.springframework</groupId>
-			    <artifactId>spring-context</artifactId>
-			     <version>5.1.9.RELEASE</version>  
-			</dependency>
-			<dependency>
-			    <groupId>org.springframework</groupId>
-			    <artifactId>spring-core</artifactId>
-			     <version>5.1.9.RELEASE</version>  
-			</dependency>
-			<dependency>
-			    <groupId>org.springframework</groupId>
-			    <artifactId>spring-beans</artifactId>
-			     <version>5.1.9.RELEASE</version>  
-			</dependency>
-			<dependency>
-			    <groupId>org.springframework</groupId>
-			    <artifactId>spring-web</artifactId>
-			     <version>5.1.9.RELEASE</version>  
-			</dependency>
-			 
-			
-			<dependency>
-			    <groupId>org.springframework</groupId>
-			    <artifactId>spring-aop</artifactId>
-			      <version>5.1.9.RELEASE</version>  
-			</dependency>
-			<dependency>
-				    <groupId>org.springframework</groupId>
-				    <artifactId>spring-expression</artifactId>
-				     <version>5.1.9.RELEASE</version>  
-				</dependency>
-			 
-			 	<dependency>
-					    <groupId>org.springframework</groupId>
-					    <artifactId>spring-orm</artifactId>
-					    <version>5.1.9.RELEASE</version>
-					</dependency>
-        
 
         <!-- javax.* APIs -->
-       <!--  <dependency>
+        <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-atinject_1.0_spec</artifactId>
             <version>1.2</version>
@@ -124,12 +62,43 @@
             <groupId>com.sun.xml.bind</groupId>
             <artifactId>jaxb-impl</artifactId>
             <version>2.3.3</version>
-        </dependency> -->
+        </dependency>
 
-       
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>javax.el-api</artifactId>
+            <version>3.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- OpenWebBeans -->
-        
-<!-- 
+        <dependency>
+            <groupId>org.apache.openwebbeans</groupId>
+            <artifactId>openwebbeans-impl</artifactId>
+            <version>${owb.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.openwebbeans</groupId>
+            <artifactId>openwebbeans-jsf</artifactId>
+            <version>${owb.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.openwebbeans</groupId>
+            <artifactId>openwebbeans-web</artifactId>
+            <version>${owb.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.openwebbeans</groupId>
+            <artifactId>openwebbeans-el22</artifactId>
+            <version>${owb.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.bval</groupId>
             <artifactId>bval-jsr</artifactId>
@@ -140,17 +109,16 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.18</version>
-        </dependency> -->
-        
+        </dependency>
     </dependencies>
 
     <repositories>
-        <!-- <repository>
+        <repository>
             <id>primefaces</id>
             <name>PrimeFaces Maven Repository</name>
             <url>http://repository.primefaces.org</url>
             <layout>default</layout>
-        </repository> -->
+        </repository>
         <repository>
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
@@ -187,7 +155,7 @@
                     <webXml>${project.build.directory}/web.xml</webXml>
                 </configuration>
             </plugin>
-            <plugin>
+             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>${jetty.version}</version>
@@ -199,7 +167,7 @@
                     <scanIntervalSeconds>5</scanIntervalSeconds>
                     <webXml>${project.build.directory}/web.xml</webXml>
                 </configuration>
-            </plugin>
+            </plugin>  
         </plugins>
 
         <resources>
@@ -279,39 +247,17 @@
             </build>
         </profile>
 
-       
         <profile>
             <id>mojarra22</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <dependencies>
-                <!-- <dependency>
+                <dependency>
                     <groupId>org.glassfish</groupId>
                     <artifactId>javax.faces</artifactId>
                     <version>2.2.20</version>
-                </dependency> -->
-                
-                	 
-					  <dependency>
-							<groupId>com.sun.faces</groupId>
-							<artifactId>jsf-api</artifactId>
-							  <version>2.2.19</version> <!-- 2.2.15, 2.2.2 -->
-						</dependency>
-						<dependency>
-						    <groupId>com.sun.faces</groupId>
-						    <artifactId>jsf-impl</artifactId>
-						    <version>2.2.19</version>
-						</dependency>  
-						
-						
-				      	<dependency>
-							<groupId>javax.servlet</groupId>
-							<artifactId>jstl</artifactId>
-							<version>1.2</version>
-						</dependency>  
-                
-                
+                </dependency>
             </dependencies>
             <build>
                 <filters>
@@ -319,11 +265,6 @@
                 </filters>
             </build>
         </profile>
-        
-        
-        
-        
-        
         <profile>
             <id>mojarra23</id>
             <dependencies>

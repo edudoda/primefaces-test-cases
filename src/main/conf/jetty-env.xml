@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd">
 <Configure class="org.eclipse.jetty.webapp.WebAppContext">
+<!-- Error while downloading 'http://jetty.mortbay.org/configure.dtd' to /Users/edudoda/.lemminx/cache/http/
+ org.mortbay.jetty.webapp.WebAppContext  org.eclipse.jetty.webapp.WebAppContext -->
     <New id="BeanManager" class="org.eclipse.jetty.plus.jndi.Resource">
         <Arg>
             <Ref id="webAppCtx"/>
@@ -14,4 +16,4 @@
             </New>
         </Arg>
     </New>
-</Configure>
+</Configure>  
