@@ -3,6 +3,7 @@ package org.primefaces.test;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.chrono.ChronoLocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,8 +37,19 @@ public class TestView implements Serializable {
 	        fl.add(new Avatar(1, "Joseph", "http://localhost:8080/test1"));
 	        fl.add(new Avatar(2, "Richard", "http://localhost:8080/test2"));
 	        fl.add(new Avatar(3, "Zalter", "http://localhost:8080/test3"));
-	        fl.add(new Avatar(4, "Antony", "http://localhost:8080/test4"));
+	        fl.add(new Avatar(4, "Antony", "http://localhost:8080/test4")); 
+	        fl.add(new Avatar(5, "Zalter Joseph", "http://localhost:8080/test5"));
+	        fl.add(new Avatar(6, "Joseph Richard", "http://localhost:8080/test6"));
+	        fl.add(new Avatar(7, "Antony Zalter", "http://localhost:8080/test7"));
+	        fl.add(new Avatar(8, "Richard Antony", "http://localhost:8080/test8"));
+	        
 	      }
+	    
+	    
+	    public String callTimeNow() {
+	    	localDateTime = LocalDateTime.now();
+	    	return null;
+	   }
 
 
 		public String getString() {

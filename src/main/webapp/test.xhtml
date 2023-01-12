@@ -13,86 +13,91 @@
     </h:head>
     <h:body>
     
-    
- 
-      <h1>#{testView.string} ...</h1>
-      
+     
       
      
       <br/>
       
     
-         Table with sortBy issue
+         Table with headerText  issue with p:columnToggler
         <h:form id="frmTest">
         
        <p:dataTable	id="tabelaItens" 	value="#{testView.fl}" var="item" 	  
-					  >  
+                      editable="true"  editMode="cell" 
+					               selectionMode="multiple" 
+					               rowKey="#{item.id}" resizableColumns="true"
+					               widgetVar="widgetVarTable"			
+					                paginator="true" rows="2"  
+									paginatorPosition="bottom"
+									paginatorAlwaysVisible="false"
+					                paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+					                currentPageReportTemplate="{totalRecords}   ({currentPage} of {totalPages})"  
+					               rowsPerPageTemplate="2,4,8"   	  >  
 		 					
-					 <p:column     sortBy="#{item.id}"   filterStyle="display:none" 
-						            filterMatchMode="contains"  styleClass="direita " style="width:150px;"     >  
-								 <f:facet name="header"><h:outputText value="id"/> </f:facet>
+				 
+                   <f:facet name="header">  				         
+				            <div   align="right"  >   <div class="direita"   >   
+						                <p:columnToggler datasource="tabelaItens"  trigger="togglerColTab" >
+						                   
+						                </p:columnToggler>      
+						            </div>	
+						            <div class="input-group   "    >    
+						              <p:commandButton id="togglerColTab"  type="button" title="col" 
+						                      icon="      "  
+						                      styleClass="btnFiltroColunas margemDirC preto"         />  
+						                   
+						                         
+					               </div> 	
+					           	</div>     	            
+				         </f:facet> 
+				         
+				         
+                 
+                 
+                 
+                 	 <p:column     sortBy="#{item.id}"   filterStyle="display:none" 
+						            filterMatchMode="contains"  styleClass="direita " style="width:150px;"     > 
+						             
+						            
+							<f:facet name="header"> 
+							  	<h:outputText value="id"/>
+							  	
+							  	  <p:commandLink      title="title"    >
+									    <i class="pi pi-check"></i>  
+							 	</p:commandLink>   
+						   </f:facet>
+						   
+						    
+								 
 							 	<h:outputText value="#{item.id}"/> 
 					  </p:column> 
 					  
+					   
 					  
-					   <p:column     sortBy="#{item.displayName}"   filterStyle="display:none" 
-						            filterMatchMode="contains"  styleClass="direita " style="width:150px;"     >  
-								 <f:facet name="header"><h:outputText value="name"/> </f:facet>
-							 	<h:outputText value="#{item.displayName}"/> 
-					  </p:column> 
-					  
-					   <p:column     sortBy="#{item.url}"   filterStyle="display:none" 
-						            filterMatchMode="contains"  styleClass="direita " style="width:150px;"     >  
-								 <f:facet name="header"><h:outputText value="url"/> </f:facet>
+					   <p:column     sortBy="#{item.url}"    headerText="url"     >   
+								            
+							<f:facet name="header"> 
+							  	<h:outputText value="url"/>
+							  	  <p:commandButton     title="urlTitle"    >
+									   anything
+							 	</p:commandButton>   
+						   </f:facet>
+						   
+						   
 							 	<h:outputText value="#{item.url}"/> 
 					  </p:column>  
         
         </p:dataTable>
         
-     
+        
+      	 
         
         
           <br/> <br/>
-          Same occour with p:treeTable
-        <p:treeTable value="#{treeTableView.root}"       var="document"  
-                     
-                      sortMode="single" allowUnsorting="true" >
-           
-            
-            
-            <p:column headerText="Name"  sortBy="#{document.name}"  width="100">
-                <h:outputText value="#{document.name}"/>
-            </p:column>
-            
-            
-           <!--   <c:forEach var="i" begin="0"     step="1"   end="5"   >   
-                       
-                       <p:column        style="width: 100px;" width="100" > 
-	                          <f:facet name="header" >   
-						               <h:outputText     value="title #{i}  "  />
-						       </f:facet> 
-						     <h:outputText  value="#{i} value  "  />
-					   </p:column>
-			  </c:forEach>  		      --> 
-            
-                 
-            
-            
-            <p:column headerText="Size"  sortBy="#{document.size}" width="100">
-                <h:outputText value="#{document.size}"/>
-            </p:column>
-            
-            <p:column headerText="Type"  sortBy="#{document.type}" width="100">
-                <h:outputText value="#{document.type}"/>
-            </p:column>
-            <p:column style="width:3rem" width="100">
-                <p:commandButton update=":frmTest:documentPanel" oncomplete="PF('documentDialog').show()"
-                               title="View Detail" icon="pi pi-search"
-                               rendered="false">
-                    <f:setPropertyActionListener value="#{document}" target="#{treeTableView.selectedDocument}"/>
-                </p:commandButton>
-            </p:column>
-        </p:treeTable>
+          
+         
+         
+          
         
          
 			        
