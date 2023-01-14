@@ -1,0 +1,1430 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"  xmlns:p="http://primefaces.org/ui" 
+	 xmlns:c="http://java.sun.com/jsp/jstl/core"  
+	xmlns:sec="http://www.springframework.org/security/tags">
+
+<h:body >
+	<f:view>
+
+		<!-- <f:loadBundle var="msg" basename="br.com.as.bundle.messages_pt_BR" /> -->
+
+		<ui:composition>
+		 
+			<h:form id="logoutDialog">
+			<p:idleMonitor timeout="2750000"> <!-- 45,83333333 2620000  43.6min 
+			já vai ter sido chamado listener=" loginBean.logout}" -->
+                <p:ajax   event="idle"    
+                         oncomplete="PF('idleDialog').show();" /> 
+		   </p:idleMonitor>
+		   
+		   <p:dialog   header="Sessão encerrada por inatividade"
+            widgetVar="idleDialog"  
+            modal="true"  fixedCenter="true"
+            closable="false" draggable="false"
+            resizable="false" appendToBody="true"
+            height="160"   width="400">
+             <h:outputText value="Você ficou mais de 40 minutos sem usar o sistema. 
+               Faça um novo Login para retornar." />
+               <br/><br/> <div align="center">
+                 <a class="btn btn-default btn-principal-layout naoSublinhar  "
+                    style=" height:30px !important; color: white; opacity:1;" name="painelHome" 
+							  title="Fazer novo login" 
+							    href="">
+									     OK!       		<!-- #{request.contextPath}/login.html?faces-redirect=true
+									                   <i 	class="glyphicon glyphicon-home icon-black"    /> -->
+					       
+			                      </a> 
+					</div>	
+				  <br/> 
+				   <div class="fonteM"> Se estiver ativo simultâneamente 
+				   em uma outra janela, desconsidere e aperte 'OK'.	 </div>
+							       
+   		 </p:dialog>
+		 </h:form>        
+			
+			<h:form>
+			
+			
+			 
+			
+			
+			<div class="navbar navbar-fixed-top navbar-inverse" role="navigation"    >
+			    
+			      
+			        <div class="navbar-header">
+			        
+			          <h:graphicImage id="logo2"  rendered="false"  cache="true"    styleClass="logoHome margemEsq "
+									 style=" margin-left:5px;     max-width:  ; " 
+									 alt="Home"  title="old"
+									 value="/imagens/logoAgroTransp150.png"   /> 
+									 
+									 
+			         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+				            <span class="sr-only">Toggle navigation</span>
+				            <span class="icon-bar"></span>
+				            <span class="icon-bar"></span>
+				            <span class="icon-bar"></span>
+				          </button> 	<!--   9BC76B -->
+				            <a class="navbar-brand hidden-sm"
+				             href="#{request.contextPath}/pages/home.html" style=" padding-right:0px;  ;">
+							 <!--  <h:outputText value="#{msg.label_product_pt1}" styleClass="hidden-sm centro" style="color:rgba(255, 255, 255, 0.72); margin-left:20px;"/>
+							 	<h:outputText value="#{msg.label_product_pt2}" styleClass="hidden-sm centro" style="font-weight: 500;"/>	 --> 						 
+							
+							
+							   <h:graphicImage id="logo"   cache="true" 
+							   			   styleClass="logoHome   "
+									 style=" margin-left:5px; margin-top: 0px;   max-width: 150px  ;" 
+									 alt="logoHome" 
+									 value="/imagens/logoAgroTranspHome.png"   />  
+									  
+								     
+									 
+								<!--  /imagens/logoAgroTransp150.png  
+								 value= {utilBean.diferencaEmDias( currentDate , utilBean.recuperarDataFromString('2022-12-31') ) lt 10 ?
+									  '/imagens/logoAgroTranspHomeNatal.png' : '/imagens/logoAgroTranspHome.png'}"   />
+									  
+									  -->
+								     
+							       
+							</a>
+				      </div>
+			
+										
+							
+						<div class="collapse navbar-collapse">
+                                  <ul class="nav navbar-nav">	
+                                 
+                               
+									<li id="liHome" style="padding-top:px; " 
+									   class="" title="#{msg.label_pagina_inicial}">
+									    
+									   <h:outputLink  value="#{request.contextPath}/pages/home.html" 
+									                  id="imgHome"  styleClass="imgHome"    > 
+										   <i  class="glyphicon glyphicon-home icon-white "/>  
+										   <h:outputText value="#{msg.label_pagina_inicial}" styleClass="hidden-lg hidden-md hidden-sm margemEsq"/>
+									   </h:outputLink></li>
+									<li class="divider-vertical"></li>	
+										   
+							  
+							
+						<c:if test="#{utilBean.usuarioLogado.perfilUsuario.acessoModuloCadastro}">
+								 <li id="liCadastro" 
+									  class="#{not utilBean.usuarioLogado.menuLateral ? 'dropdown' : ''}">
+									
+									<c:if test="#{utilBean.usuarioLogado.menuLateral}"> 
+										<h:outputLink value="#{request.contextPath}/pages/cadastro/homeCadastro.html"  >  
+										         <i  class="fa fa-archive margemDir   hidden-md hidden-sm"/> 
+                                            <h:outputText value="#{msg.link_cadastro}" />
+										  	</h:outputLink>
+									</c:if>	
+									
+										 	
+							 	<c:if test="#{not utilBean.usuarioLogado.menuLateral}"> 		 
+										 
+										 <a href="#" class="dropdown-toggle " 
+										 	data-toggle="dropdown" onclick="activeMenu();" 	> 
+											   <i  class="fa fa-archive margemDir   hidden-md hidden-sm"/> 
+                                            <h:outputText value="#{msg.link_cadastro}" />
+											      <span class="caret margemEsqC"></span>
+									     </a>
+						 <ul class="dropdown-menu dropdown-slim "  >	
+									     	
+									     	
+									     	
+						<c:if test="#{(utilBean.usuarioLogado.perfilUsuario.cadastroEmpresa.contains('R'))}">
+					   <li class="nav-header" style="margin-top:5px;">
+					   <h:outputText value="#{msg.label_unidade} #{msg.label_de} #{msg.label_negocio}" 
+					     styleClass="margemEsqC negrito"   />   </li>
+							  <hr style="margin-bottom:5px; margin-top:0px;"/>				 
+									<li id="liCadEmpresa"  class=" ">
+									<h:commandLink	  style="    padding-top: 10px;" value="#{msg.title_fazendas_empresas}"
+														action="#{empresaBean.exibirListaEmpresasRedirect}">
+																			        
+								     	 </h:commandLink> 
+								    	</li>
+									
+									<li id="liCadCC" class=" ">
+									      <h:commandLink  style="    padding-top: 10px;"  styleClass=" "
+									      	value="&#9492;   #{msg.button_cc}" rendered="#{(utilBean.usuarioLogado.perfilUsuario.cadastroCc.contains('R'))}"
+														action="#{centroCustoEmpresaBean.exibirListaCceRedirect}">
+																		        
+								     	 </h:commandLink> 
+									</li>  
+									<li id="liCadSetor" class=" ">  
+									      <h:commandLink  style="    padding-top: 10px;"  styleClass="margemEsqC"
+									      	value="&#9492;   #{msg.label_setor_lavoura_animal}" rendered="#{(utilBean.usuarioLogado.perfilUsuario.cadastroSetor.contains('R'))}"
+														action="#{centroCustoSetorBean.exibirListaSetoresGenerica}">
+																			        
+								     	 </h:commandLink> 
+							     </li>
+									
+					</c:if>	
+									
+					<c:if test="#{utilBean.usuarioLogado.perfilUsuario.cadastroAtivo.contains('R') or utilBean.usuarioLogado.perfilUsuario.cadastroAtivoOficina.contains('R')}"		>		
+					  <li class="nav-header"  style="margin-top:5px;">
+							
+							  <h:outputText value="#{msg.label_ativo} (#{msg.label_patrimonio})"  
+							               styleClass="margemEsqC negrito"/>  </li>
+					 		   <hr style="margin-bottom:5px; margin-top:0px;"/>
+							 
+							 	<li id="liCadAtivo" class="">
+							 	<h:commandLink  style="    padding-top: 10px;"	value="#{msg.label_imobilizado} #{msg.label_ou} #{msg.label_intangivel}"
+													action="#{imobilizadoBean.exibirListaAtivoRedirect}" rendered="#{utilBean.usuarioLogado.perfilUsuario.cadastroAtivo.contains('R')}">  
+														        
+								 	 </h:commandLink>
+								</li>
+								
+								
+								<li id="liCadOficina"   class=" ">
+							           <h:commandLink style="    padding-top: 10px;" styleClass="margemEsqC"
+								    	value="&#9492; #{msg.label_oficina} " rendered="#{utilBean.usuarioLogado.perfilUsuario.cadastroAtivoOficina.contains('R')}"
+								 	      action="#{imobilizadoBean.exibirListaControleDoAtivo}">
+								 	
+							       </h:commandLink>  
+							           </li> 
+				</c:if> 		    
+				
+				
+				 
+								 
+								 
+					<c:if test="#{(utilBean.usuarioLogado.perfilUsuario.cadastroParceiro.contains('R'))}"> 
+					    <li class="nav-header" style="margin-top:5px;">
+					    <h:outputText value="#{msg.label_relacionamento} #{msg.label_comercial}"  
+					    styleClass="margemEsqC negrito"   />   </li>
+					   <hr style="margin-bottom:5px; margin-top:0px;"/>
+					   
+					   	 <li id="liCadParceiro"  class="deslocAEsquerda1">
+							 <h:commandLink	value="#{msg.label_parceiros}"  style="    padding-top: 10px;" 
+							   title="#{msg.section_clientess}, #{msg.section_fornecedores}, #{msg.label_prestadores}, #{msg.label_emissores} #{msg.label_e} #{msg.label_transportadoras} "
+											action="#{parceiroBean.exibirListaRedirect}"> 
+									  	</h:commandLink>
+							   </li>  
+							    
+							 
+				</c:if>
+						
+		 <c:if test="#{(utilBean.usuarioLogado.perfilUsuario.cadastroFuncionario.contains('R') or utilBean.usuarioLogado.perfilUsuario.cadastroFuncionarioControle.contains('R'))}"> 			    
+				<li class="nav-header" style="margin-top:5px;">
+				<h:outputText value="#{msg.section_mao_obra}"  styleClass="margemEsqC negrito"  />   </li>
+					   <hr style="margin-bottom:5px; margin-top:0px;"/>
+							
+							 <li id="liCadFuncionario"   class=" ">
+							  <h:commandLink style="    padding-top: 10px;" 
+							     	value=" #{msg.section_funcionarios}"
+								 action="#{funcionarioBean.prepararFiltro}" rendered="#{utilBean.usuarioLogado.perfilUsuario.cadastroFuncionario.contains('R')}">
+							   </h:commandLink>  </li> 
+							   
+							  <li id="liCadFuncionarioControle"   class=" ">
+							     
+								    <h:commandLink style="    padding-top: 10px;" styleClass="margemEsqC"
+								    	value="&#9492; #{msg.label_controle_funcionario} " rendered="#{utilBean.usuarioLogado.perfilUsuario.cadastroFuncionarioControle.contains('R')}"
+								 	             action="#{funcionarioBean.prepararFiltroControleFuncionario}">
+								 	
+							       </h:commandLink>  
+							           </li> 
+				</c:if>
+					
+							  
+					<c:if test="#{utilBean.usuarioLogado.perfilUsuario.cadastroProduto.contains('R') or utilBean.usuarioLogado.perfilUsuario.cadastroProdutoControle.contains('R')}"> 			 
+					 
+					 <li class="nav-header" style="margin-top:5px;">
+					
+					 <h:outputText styleClass="margemEsqC negrito" 
+					  value="#{msg.label_produto}, #{msg.label_material} #{msg.label_e} #{msg.label_insumo}"    />   </li>
+					  
+					  <hr style="margin-bottom:5px; margin-top:0px;"/>
+					  
+					   <li id="liCadProdGen"   class=" ">
+							     <h:commandLink style="    padding-top: 10px;" 	value="#{msg.label_produtos}" 
+							                         rendered="#{utilBean.usuarioLogado.perfilUsuario.cadastroProduto.contains('R')}"
+													action="#{produtoMaterialBean.exibirListaProdutoGenericoRedirect}">
+								   </h:commandLink>
+							    </li> 
+							     
+							 
+					  
+					       <li id="liCadProdComposto"   class=" ">
+							        <h:commandLink	  style="    padding-top: 10px;"  styleClass="margemEsqC"
+							              rendered="#{utilBean.usuarioLogado.perfilUsuario.cadastroProdutoControle.contains('R')}"
+							             value="&#9492; #{msg.label_controle} #{msg.label_de} #{msg.label_produtos} "
+										 action="#{produtoMaterialBean.exibirListaControleProdutoRedirect}">
+									   </h:commandLink>
+								   
+							    </li> 
+					  </c:if>
+						 
+						 
+					  
+					    <li class="nav-header" style="margin-top:5px;">
+					     <h:outputText value="#{msg.label_controle}" styleClass="margemEsqC negrito"    />   </li>
+					            <hr style="margin-bottom:5px; margin-top:0px;"/>
+							<li id="liCadControleClimaConsumo"   class=" ">
+							 <h:commandLink	  style="    padding-top: 10px;" rendered="#{(utilBean.usuarioLogado.perfilUsuario.cadastroControleClimatico.contains('R'))}"
+							       value="#{msg.label_indices} #{msg.label_e} #{msg.label_ocorrencias}" 
+								title="#{msg.label_controles} #{msg.label_de}:  #{msg.label_consumo}, #{msg.label_climaticos}, #{msg.label_indices} #{msg.label_financeiros} #{msg.label_ou} #{msg.label_apontamentos}"
+								 action="#{controleBean.exibirListaControleClimaConsumo}"> 
+								 </h:commandLink>
+							  </li>
+							  
+							   
+						
+					 
+					      	  <li id="liCadControleCategoriaSetor"   class=" ">
+					      	   <h:commandLink  style="    padding-top: 10px;" rendered="#{(utilBean.usuarioLogado.perfilUsuario.cadastroControleSetor.contains('R'))}"
+					      	     	value="#{msg.label_manejo} (#{msg.label_lavouras}/#{msg.label_animais})"
+											action="#{controleCategoriaSetorBean.exibirListaControleCategoriaSetor}"> 
+							 </h:commandLink>
+							  </li>
+						 
+						 			     		
+							
+						            	</ul>
+							</c:if>
+						     </li>
+									<li class="divider-vertical"></li>	
+								</c:if>	
+								
+								
+								
+								
+								
+								
+								
+								
+								<c:if test="#{utilBean.usuarioLogado.perfilUsuario.acessoModuloOs}">
+										<li id="liOS">
+										      <h:commandLink 	rendered="#{(utilBean.usuarioLogado.perfilUsuario.ordemServico.contains('R'))}"
+										                        action="#{ordemServicoBean.prepararFiltro}" >	 
+										               <i  class="fa fa-list-ul margemDir   hidden-md hidden-sm"/>    
+										                <h:outputText value="#{msg.link_ordemservico}" styleClass="hidden-sm hidden-md" />
+										                  <h:outputText value="#{msg.label_sigla_os}" title="#{msg.link_ordemservico}" 
+										                                                  styleClass="hidden-lg hidden-xs" />
+										                     
+										              <f:setPropertyActionListener target="#{ordemServicoBean.exibirRecursosOS}"    value="false" />	
+										               <f:setPropertyActionListener target="#{ordemServicoBean.pagina}"    value="listaOs" />	 
+										          
+								           			    </h:commandLink>
+											</li>	
+									<li class="divider-vertical"></li>			
+							</c:if>
+										  
+										
+										
+							<c:if test="#{utilBean.usuarioLogado.perfilUsuario.acessoModuloEstoque}">
+								 <li id="liEstoque"  
+									   class="#{not utilBean.usuarioLogado.menuLateral ? 'dropdown' : ''}">
+									
+									<c:if test="#{utilBean.usuarioLogado.menuLateral}"> 
+										<h:outputLink value="#{request.contextPath}/pages/estoque/homeEstoque.html" >
+											 <i  class="fa fa-tags margemDir   hidden-md hidden-sm"/> 
+											 <h:outputText value="#{msg.link_estoque}" />
+										</h:outputLink>   
+									</c:if>	
+									
+										 	
+										<c:if test="#{not utilBean.usuarioLogado.menuLateral}"> 		 
+										 
+										 <a href="#" class="dropdown-toggle " 	data-toggle="dropdown" 	> 
+											    <i  class="fa fa-tags margemDir   hidden-md hidden-sm"/> 
+												<h:outputText value="#{msg.link_estoque}" />
+											      <span class="caret margemEsqC"></span>
+											   
+											  <h:panelGroup layout="block" rendered="false"
+											      style="margin-top:-7px; font-weight: normal;"   styleClass="fonteP "  > 
+											      <center>  <h:outputText value="Consumo" />  </center> 
+											   </h:panelGroup>   
+									     </a>
+									   
+									     	<ul class="dropdown-menu">
+												 
+											       <li  id="liEstoqueConsumo"  class="margemInf margemSup">
+											       <h:commandLink  style="    padding-top: 10px;"
+											        rendered="#{(utilBean.usuarioLogado.perfilUsuario.estoqueConsumo.contains('R'))}"
+											       	value="#{msg.label_estoque_consumo}"
+																action="#{estoqueBean.prepararFiltroConsumo}">
+															 	 </h:commandLink>	  
+											 	</li>
+						
+						
+											  <li id="liEstoqueProducao"    class="margemInf margemSup">
+											     <h:commandLink     style=" padding-top: 10px;"	 
+											           rendered="#{(utilBean.usuarioLogado.perfilUsuario.estoqueProducao.contains('R'))}" 
+											          value="#{msg.label_estoque_producao}"
+																action="#{estoqueBean.prepararFiltroProducao}">
+															  	 </h:commandLink> 
+											</li>
+											    <hr style="margin-bottom:10px; margin-top:10px;"/> 
+										  
+										   <li id="liEstoquePerdas"   class="margemInf margemSup">
+											   <h:commandLink   style="    padding-top: 10px;" rendered="#{(utilBean.usuarioLogado.perfilUsuario.estoquePerda.contains('R'))}"
+											              	value="#{msg.label_perdas} #{msg.label_e} #{msg.label_transferencias}"
+																action="#{estoqueBean.prepararFiltroPerdasEstoque}">
+															 	 </h:commandLink> 
+										 	</li>
+										 	 
+												 
+										</ul>
+									 
+										
+										</c:if>		 
+								 	</li>	 
+								 <li class="divider-vertical"></li>	
+								 
+							</c:if>
+							
+							
+							
+			   <c:if test="#{utilBean.usuarioLogado.perfilUsuario.acessoModuloOp}">
+								 <li id="liOperacoes" 
+									  class="#{not utilBean.usuarioLogado.menuLateral ? 'dropdown' : ''}">
+									
+									<c:if test="#{utilBean.usuarioLogado.menuLateral}"> 
+								        	<h:outputLink value="#{request.contextPath}/pages/operacoes/homeOperacoes.html"  >  
+										          <i  class="fa fa-legal margemDir   hidden-md hidden-sm"/> 
+										          <h:outputText value="#{msg.link_operacoes}" />	
+										        									 
+										     </h:outputLink>
+									</c:if>	
+									
+										 	
+							 	<c:if test="#{not utilBean.usuarioLogado.menuLateral}"> 		 
+										 
+										 <a href="#" class="dropdown-toggle " 	data-toggle="dropdown" 	>  
+										         <i  class="fa fa-legal margemDir   hidden-md hidden-sm"/> 
+										          <h:outputText value="#{msg.link_operacoes}" />
+											      <span class="caret margemEsqC"></span>
+									     </a>
+			 <ul class="dropdown-menu">	
+									     	
+				 					     			
+		 	 <li class="nav-header" style="margin-top:15px;">
+		 	   <h:outputText    value="-"
+		 	                   class="margemEsq btn  btn-xs  paddingXs semCursor  margemDirC corVermelho2 "
+				                style="height: 17px; background: #ffc9c975; border-color: #a5281a;"/>
+				                 
+		 	  <h:outputText value="#{msg.label_despesas}" styleClass="  negrito" />  </li>
+               <hr style="margin-bottom:5px; margin-top:1px;"/>
+        	
+                    <li id="liCompra" class="  margemInfC margemSupC">
+                    <h:commandLink  style="    padding-top: 10px;" rendered="#{(utilBean.usuarioLogado.perfilUsuario.opDespesaCompra.contains('R'))}" 
+                    	value="#{msg.link_compras}"
+										action="#{compraVendaBean.prepararFiltro}">
+							<f:setPropertyActionListener target="#{compraVendaBean.nomeOperacao}" value="compra"/>  
+					 </h:commandLink>
+					</li>
+		  
+			 
+					<li id="liDespesaPessoal"  class="  margemInfC margemSupC">
+					<h:commandLink  style="    padding-top: 10px;" 	value="#{msg.label_despesas_com_pessoal}"
+							  rendered="#{(utilBean.usuarioLogado.perfilUsuario.opDespesaPessoal.contains('R'))}"
+							  	action="#{compraVendaBean.prepararFiltro}">
+							<f:setPropertyActionListener target="#{compraVendaBean.nomeOperacao}" value="despesa_com_pessoal"/>
+							<f:setPropertyActionListener target="#{compraVendaBean.exibirItensOperacao}" value="false"/>     	 
+								     	  
+						</h:commandLink>
+					</li>
+			 	 		
+					
+			 
+						<li  id="liDespesaGeral"  class="  margemInfC margemSupC">
+						<h:commandLink  style="    padding-top: 10px;"  rendered="#{(utilBean.usuarioLogado.perfilUsuario.opDespesaOutra.contains('R'))}" 
+						            	value="#{msg.label_outros_custos_e_despesas}"
+										action="#{compraVendaBean.prepararFiltro}">
+							<f:setPropertyActionListener target="#{compraVendaBean.nomeOperacao}" value="despesa_geral"/>
+							<f:setPropertyActionListener target="#{compraVendaBean.listaTiposItem}" value=""/>
+					 	</h:commandLink>
+					</li> 		
+					
+				 <li class="nav-header" style="margin-top:15px;">
+				 
+				  <h:outputText  class="margemEsq btn  btn-xs   paddingXs semCursor  margemDirC "
+				                  value="+" style="height: 17px; background: #b6e0b175; border-color: green;"/>				 
+				  <h:outputText value="#{msg.label_receitas}" styleClass="  negrito" />  </li>
+                  
+                   <hr style="margin-bottom:5px; margin-top:0px;"/>
+ 
+					<li  id="liVenda"  class="  margemInfC margemSupC" >
+					<h:commandLink 	 style="    padding-top: 10px;"  rendered="#{(utilBean.usuarioLogado.perfilUsuario.opReceitaVenda.contains('R'))}" 
+					         value="#{msg.link_vendas}" 
+							 action="#{compraVendaBean.prepararFiltro}">  
+							<f:setPropertyActionListener target="#{compraVendaBean.nomeOperacao}" value="venda"/>
+						 
+						 </h:commandLink>
+					</li>
+					
+					 
+		 
+					<li id="liOutroGranho"  class="  margemInfC margemSupC" >
+					<h:commandLink  style="    padding-top: 10px;"
+					 rendered="#{(utilBean.usuarioLogado.perfilUsuario.opReceitaOutra.contains('R'))}" 
+					   	value="#{msg.label_outros} #{msg.label_ganhos_e_receitas_minusculo}" 
+						 action="#{compraVendaBean.prepararFiltro}"> 
+							<f:setPropertyActionListener target="#{compraVendaBean.nomeOperacao}" value="outro_ganho"/>
+							<f:setPropertyActionListener target="#{compraVendaBean.listaTiposItem}" value=""/>
+					   </h:commandLink> 	 
+				 	</li>
+			 		
+				
+			  <li class="nav-header" style="margin-top:15px;"> 
+			    
+			    
+			      <h:outputText  class="margemEsq btn  btn-xs   paddingXs semCursor  margemDirC "
+				                  value="$" style="height: 17px; background: #faebcc; border-color: #ce951f;"/>
+				                  
+				         <h:outputText value="#{msg.label_outros}" styleClass="  negrito" />  </li>
+				       <hr style="margin-bottom:5px; margin-top:1px;"/>
+				   
+						<li    id="liAporteRetirada"  class="  margemInfC margemSupC"  >
+						     <h:commandLink  style="    padding-top: 10px;" rendered="#{(utilBean.usuarioLogado.perfilUsuario.opOutroAporteRetirada.contains('R'))}"
+						             	value="#{msg.label_aportes_retiradas}" 
+										action="#{compraVendaBean.prepararFiltro}">
+							<f:setPropertyActionListener target="#{compraVendaBean.nomeOperacao}" value="aporte_retirada"/> 
+						 	</h:commandLink>
+					 	</li>
+				 
+			 
+					<li id="liEmprestimo"  class="  margemInfC margemSupC"  >
+					<h:commandLink  style="    padding-top: 10px;" 	rendered="#{(utilBean.usuarioLogado.perfilUsuario.opOutroEmprestimo.contains('R'))}" 
+					  value="#{msg.link_emprestimos}" 
+						 	action="#{compraVendaBean.prepararFiltro}">
+							<f:setPropertyActionListener target="#{compraVendaBean.nomeOperacao}" value="emprestimo"/>
+							 	</h:commandLink>
+					</li>
+					
+					<li id="liInvestimento"  class="  margemInfC margemSupC"  >
+					<h:commandLink  style="    padding-top: 10px;" 	rendered="#{(utilBean.usuarioLogado.perfilUsuario.opOutroInvestimento.contains('R'))}" 
+					  value="#{msg.label_investimentos}" 
+						 	action="#{compraVendaBean.prepararFiltro}">
+							<f:setPropertyActionListener target="#{compraVendaBean.nomeOperacao}" value="investimento"/>
+							 	</h:commandLink>
+					</li>
+					
+					
+					
+					
+				<li class="nav-header" style="margin-top:15px;"> 
+				  
+				   <h:panelGroup   styleClass="margemEsq btn  btn-xs  margemDirC  "
+				                style="height:  ; background: none; border-color: gray;">
+				         <i class="  fa fa-file-text-o    "/>
+				    </h:panelGroup> 
+				    <h:outputText value="#{msg.label_documentos} #{msg.label_fiscais}" styleClass=" negrito"/>  </li>
+				  <hr style="margin-bottom:5px; margin-top:1px;"/>	
+					
+								  
+						<li id="liNFe"  class="  margemInfC margemSupC"  >
+				     	 
+						<h:commandLink 	rendered="#{utilBean.usuarioLogado.perfilUsuario.opEmissaoNfe.contains('R')}" 
+						               value="#{msg.label_nfe}" title="Notas fiscais eletrônicas"
+										action="#{fiscalBean.navegarListaNfe}" style="    padding-top: 10px;"> 
+										  <f:setPropertyActionListener target="#{fiscalBean.tipoPagina}" value="emissao"/>		
+						   	</h:commandLink>
+						 <!-- 	 :setPropertyActionListener target="#{compraVendaBean.nomeOperacao}" value="nfe_venda"/> -->
+					 </li>
+					 
+					 
+					 <li id="liNFeDistribuida" class=" "> <!-- deslocAEsquerda3 -->
+									  
+						      <h:commandLink	    styleClass=" " style=" padding-top: 10px;"
+								rendered="#{utilBean.usuarioLogado.perfilUsuario.opEmissaoNfe.contains('R')}"
+								 action="#{fiscalBean.navegarListaNfe}">
+									  <!--  <i class=" fa   fa-angle-right" />  -->
+									&#9492;  #{msg.label_notas}	#{msg.label_distribuidas_m}	
+									  <f:setPropertyActionListener target="#{fiscalBean.tipoPagina}" value="distribuido"/>				        
+					     	 	<h:outputText value="Novo!" styleClass="label label-danger fontePequena margemEsqC"  
+												              rendered="#{utilBean.mostrarAlertaDeVersaoNova}" />  
+								</h:commandLink> 
+					 	</li>   
+									
+									
+									 
+					 
+					 
+					 <li id="liLCDPR"  class="  margemInfC margemSupC"  >
+						 
+						<h:commandLink 	rendered="#{utilBean.usuarioLogado.perfilUsuario.opEmissaoLCDPR.contains('R')}"
+						value="#{msg.label_lcdpr}" title="#{msg.label_lcdpr_nome}"  style="    padding-top: 10px;"
+										action="#{fiscalBean.navegarListaLCDPR}"> 
+						 	</h:commandLink>
+						 	 
+						 	 			        
+					</li>
+			 	      	
+				     	</ul>
+		 	 </c:if>
+ 
+							 
+				</li>
+				<li class="divider-vertical"></li>	
+	</c:if>	
+	
+	
+	 
+	
+							
+						<c:if test="#{utilBean.usuarioLogado.perfilUsuario.acessoModuloFinanceiro}">
+								 <li id="liFinanceiro" 
+									  class="#{not utilBean.usuarioLogado.menuLateral ? 'dropdown' : ''}">
+									
+									<c:if test="#{utilBean.usuarioLogado.menuLateral}"> 
+										<h:outputLink value="#{request.contextPath}/pages/financeiro/homeFinanceiro.html"  >  
+										        <i  class="fa fa-dollar margemDir   hidden-md hidden-sm"/> 
+										         <h:outputText value="#{msg.link_financeiro}" />
+										  	</h:outputLink>
+									</c:if>	
+									
+										 	
+										<c:if test="#{not utilBean.usuarioLogado.menuLateral}"> 		 
+										 
+										 <a href="#" class="dropdown-toggle " 	data-toggle="dropdown" 	> 
+											    <i  class="fa fa-dollar margemDir   hidden-md hidden-sm"/> 
+										         <h:outputText value="#{msg.link_financeiro}" />
+											      <span class="caret margemEsqC"></span>
+									     </a>
+									     	<ul class="dropdown-menu">	
+									     	
+									     	
+				  
+				  	<li id="liFinanceiroPagar" class="   margemSup">
+					    <h:commandLink	 style="    padding-top: 10px;" rendered="#{(utilBean.usuarioLogado.perfilUsuario.financeiroContasPagar.contains('R'))}"
+					    	action="#{financeiroBean.prepararFiltro(true)}">
+							 <i class="glyphicon glyphicon-minus  margemDirCinco"/>		
+							 <h:outputText value="#{msg.link_contas_pagar}"/>
+							 <f:setPropertyActionListener target="#{financeiroBean.tipoConta}" value="pagar"/>
+							
+							</h:commandLink>
+							<!-- <f:setPropertyActionListener target="#{exportBean.tituloRelatorio}" 
+								           			  value="#{msg.label_relatorio} #{msg.label_de} #{msg.label_contas} #{msg.label_a_pagar} #{msg.label_de} '#{financeiroBean.empresaSelecionada.nomeFantasia}' (#{utilBean.dataMinFormatada} #{msg.label_a} #{utilBean.dataMaxFormatada})" />						         -->
+					 </li> 
+					 
+					  
+			 
+					<li  id="liFinanceiroReceber" class=" margemInf  ">
+						 
+						   <h:commandLink	rendered="#{(utilBean.usuarioLogado.perfilUsuario.financeiroContasReceber.contains('R'))}" 
+									 style="    padding-top: 10px;"	action="#{financeiroBean.prepararFiltro(true)}">
+							 <i class="glyphicon glyphicon-plus  margemDirCinco"/>		
+							 <h:outputText value="#{msg.link_contas_receber}"/>
+							 
+							 <f:setPropertyActionListener target="#{financeiroBean.tipoConta}" value="receber"/>	
+							<f:setPropertyActionListener target="#{exportBean.tituloRelatorio}" 
+								           			  value="#{msg.label_relatorio} #{msg.label_de} #{msg.label_contas} #{msg.label_a_receber} #{msg.label_de} '#{financeiroBean.empresaSelecionada.nomeFantasia}' (#{utilBean.dataMinFormatada} #{msg.label_a} #{utilBean.dataMaxFormatada})" />						        
+								     			
+						 </h:commandLink>
+					</li>
+				 
+					
+					   <hr style="margin-bottom:10px; margin-top:10px;"/> 
+					
+					 
+				 	<li  id="liFinanceiroExtrato" class=" margemInf margemSup">
+				 	<h:commandLink rendered="#{(utilBean.usuarioLogado.perfilUsuario.financeiroExtrato.contains('R'))}"					
+									 style="    padding-top: 10px;"		action="#{financeiroBean.exibirExtrato}">
+											 <i class="fa fa-calendar-check-o  margemDirCinco"/>		
+							      <h:outputText value="#{msg.label_conciliacao}  (#{msg.label_extrato})"/>
+							      
+							      <f:setPropertyActionListener target="#{exportBean.tituloRelatorio}" 
+								           			  value="#{msg.label_relatorio} #{msg.label_de} #{msg.label_extrato} (#{msg.link_caixa}) #{msg.label_da} #{msg.label_conta} '#{financeiroBean.nomeContaSelecionada}' '#{financeiroBean.empresaSelecionada.nomeFantasia}' (#{utilBean.dataMinFormatada} #{msg.label_a} #{utilBean.dataMaxFormatada})" />						        
+					 	<!-- <h:outputText value="Novo!" styleClass="label label-danger fontePequena margemEsqC"  
+												              rendered="#{utilBean.mostrarAlertaDeVersaoNova}" />  -->
+					 	</h:commandLink> 
+				 	 </li>
+					 
+					 
+				 
+						<li  id="liFinanceiroFluxoCaixa" class=" margemInf margemSup">
+						  <h:commandLink rendered="#{(utilBean.usuarioLogado.perfilUsuario.financeiroFluxoCaixa.contains('R'))}"
+						  	 style="    padding-top: 10px;" action="#{financeiroBean.exibirFluxoCaixa}">
+								 <i class="fa fa-random  margemDirCinco"/>		
+							      <h:outputText value="#{msg.label_fluxo_de_caixa}"/>
+							  	<f:setPropertyActionListener target="#{utilBean.exibirDecimal}"   value="false" />	<!--  v6.7 -->
+								           			  	<f:setPropertyActionListener target="#{exportBean.tituloRelatorio}" 
+								           			  value="#{msg.label_relatorio} #{msg.label_de} #{msg.label_fluxo_de_caixa}" />						        
+							</h:commandLink>
+					 </li>
+				 										
+				    <hr style="margin-bottom:10px; margin-top:10px;"/> 
+				      <li  id="liFinanceiroTransferencias" class=" margemInf margemSup">
+				      <h:commandLink	 rendered="#{(utilBean.usuarioLogado.perfilUsuario.financeiroTransferencia.contains('R'))}" 	
+				                style="    padding-top: 10px;"    title="#{msg.link_transferencias}"   action="#{compraVendaBean.prepararFiltro}">
+								  <i class="glyphicon glyphicon-transfer margemDirCinco"/>		
+							      <h:outputText value="#{msg.label_transferencia} #{msg.label_entre_m} #{msg.label_contas_m}"/>
+								
+								    <f:setPropertyActionListener target="#{compraVendaBean.nomeOperacao}" value="transferencia"/>
+						  	</h:commandLink>
+					 </li> 	 
+					 
+					  	<li id="liFinanceiroContasDeposito">
+					  	<h:commandLink rendered="#{(utilBean.usuarioLogado.perfilUsuario.configuracoesContasDeposito.contains('R'))}"  
+								 style="    padding-top: 10px;" action="#{parceiroBean.exibirListaContasDeposito}">
+						             <i class="fa fa-credit-card  margemDirCinco"/>	
+							    <h:outputText value="#{msg.label_contas_deposito}"/> 
+							</h:commandLink></li>
+					 	     	
+							
+						  </ul>
+			       </c:if> 
+			      </li>
+			    <li class="divider-vertical"></li>	
+	     	     </c:if>	
+					     	
+					     	
+					
+						<c:if test="#{utilBean.usuarioLogado.perfilUsuario.acessoModuloRelatorio}">
+								 <li id="liRelatorios" 
+									  class="#{not utilBean.usuarioLogado.menuLateral ? 'dropdown' : ''}">
+									
+									<c:if test="#{utilBean.usuarioLogado.menuLateral}"> 
+										<h:outputLink value="#{request.contextPath}/pages/relatorios/homeRelatorios.html"  >  
+										    	<i  class="fa fa-bar-chart-o margemDir   hidden-md hidden-sm"/>
+											<h:outputText value="#{msg.link_relatorios}"   />
+										  	</h:outputLink>
+									</c:if>	
+									
+										 	
+						 <c:if test="#{not utilBean.usuarioLogado.menuLateral}"> 		 
+										 
+										 <a href="#" class="dropdown-toggle " 	data-toggle="dropdown" 	> 
+										 	<i  class="fa fa-bar-chart-o margemDir   hidden-md hidden-sm"/>
+											<h:outputText value="#{msg.link_relatorios}"   />
+										    <span class="caret margemEsqC"></span>
+									     </a>
+									     	<ul class="dropdown-menu">	 
+									     	
+					   <li class="nav-header margemSupC"  >
+				  <h:outputText value="#{msg.label_controle} #{msg.label_operacional}"   styleClass="margemEsq negrito"
+				  rendered="#{utilBean.usuarioLogado.perfilUsuario.acessoModuloRelatorioControle}" /> 	   </li>	
+				   <hr style="margin-bottom: 5px; margin-top:5px;"/> 
+		  		 
+				  <li id="liRelProducao" class="     ">
+				  <h:commandLink	   style="    padding-top: 10px;"  
+				      rendered="#{(utilBean.usuarioLogado.perfilUsuario.zzRelControleProducao)}" 
+				           value="#{msg.label_producao}" 
+							 action="#{relatorioBean.prepararFiltro}" >
+																 <f:setPropertyActionListener target="#{relatorioBean.tipoRelatorio}" value="producao"/>
+													     </h:commandLink>	 </li>
+					 			
+														     
+					        <li id="liRelRastreabilidade" class="     ">
+					       <h:commandLink	   style="    padding-top: 10px;" 
+					        rendered="#{(utilBean.usuarioLogado.perfilUsuario.zzRelControleRastreabilidade)}" 
+					       value="#{msg.label_rastreabilidade} #{msg.label_da} #{msg.label_producao}"  
+														action="#{relatorioBean.prepararFiltro}" >
+																 <f:setPropertyActionListener target="#{relatorioBean.tipoRelatorio}" value="rastreabilidade"/>
+														 </h:commandLink>	 </li>	
+														 
+														 
+						 
+							  	<li id="liRelMovimentacaoProdutos" class="     ">
+									          <h:commandLink    style="    padding-top: 10px;"   rendered="#{utilBean.usuarioLogado.perfilUsuario.zzMovimentacaoProdutos}"
+									          	value="#{msg.label_movimentacao} #{msg.label_de} #{msg.label_produtos_m}"  
+												         	title="#{msg.label_movimentacao} #{msg.label_de} #{msg.label_produtos}"	
+												         	action="#{relatorioBean.navegarRelMovimentacao(null, null, null)}" > 
+											 </h:commandLink>
+								       </li>								 
+														 
+					 			 
+									 
+					 
+					   <li id="liRelClimaticoConsumo" class="     ">
+					   <h:commandLink     style="    padding-top: 10px;" 
+					    rendered="#{(utilBean.usuarioLogado.perfilUsuario.zzRelControleClimatico)}"	value="#{msg.label_climatico_e_consumo}"  
+														action="#{relatorioBean.prepararFiltro}"  >
+																 <f:setPropertyActionListener target="#{relatorioBean.tipoRelatorio}" value="controle_climatico_consumo"/>
+														 </h:commandLink>	 </li>
+					 		
+															 
+					
+					 							 
+					 <li id="liRelControleSetor" class="     ">
+					 <h:commandLink	   style="    padding-top: 10px;" 
+					   rendered="#{(utilBean.usuarioLogado.perfilUsuario.zzRelControleSetor)}" 
+					                value="#{msg.label_manejo} (#{msg.label_lavouras}/#{msg.label_animais})"  
+														action="#{relatorioBean.prepararFiltro}"  >
+																 <f:setPropertyActionListener target="#{relatorioBean.tipoRelatorio}" value="controle_setores"/>
+								  </h:commandLink>	 </li>									 
+					   
+					  	
+					  	
+					  	 
+		 
+							  <li id="liRelAplicabilidade" class="     ">
+							  <h:commandLink   style="    padding-top: 10px;"  
+							  	 rendered="#{(utilBean.usuarioLogado.perfilUsuario.zzRelControleAplicabilidade)}"
+							      value="#{msg.label_aplicabilidade} (#{msg.label_insumo}s)"  
+										 action="#{relatorioBean.prepararFiltro}" > 
+										 	<f:setPropertyActionListener target="#{relatorioBean.tipoRelatorio}" value="aplicabilidade"/>
+														</h:commandLink>	 </li>
+							 									
+							 					 	
+									
+					 <li class="nav-header margemSupC" >
+					 <h:outputText value="#{msg.label_administrativo_financeiro}"  styleClass="margemEsq negrito"
+					    rendered="#{utilBean.usuarioLogado.perfilUsuario.acessoModuloRelatorioFinanceiro}"   />   </li>			
+					 		  <hr style="margin-bottom:0px; margin-top:5px;"/>				 
+								  					 
+					 
+								    <li id="liRelCusto" class="     ">
+								    <h:commandLink	   style="    padding-top: 10px;"   rendered="#{(utilBean.usuarioLogado.perfilUsuario.zzRelFinanceiroCusto)}" 
+								        value="#{msg.label_custo}"  
+											 	action="#{relatorioBean.prepararFiltro}" > 
+											 	 <f:setPropertyActionListener target="#{relatorioBean.tipoRelatorio}" value="custo"/>
+															<h:outputText value="Atualizado!" 
+															style="font-size: 10px !important; color: white;"
+															styleClass="label label-danger   margemEsq   "   
+															  rendered="#{false and utilBean.mostrarAlertaDeVersaoNova}" />  	 
+												             </h:commandLink> 
+									  </li>	 
+								
+			 
+								    <li id="liRelReceitasDespesas" class="     ">
+								           <h:commandLink    style="    padding-top: 10px;"  rendered="#{(utilBean.usuarioLogado.perfilUsuario.zzRelReceitasDespesas)}" 
+								           action="#{relatorioBean.navegarRelRecDes}" 
+								                  value="#{msg.label_receitas_despesas_rel}"  >   
+										      </h:commandLink>  
+							        </li>
+							 
+							  
+				 
+								    <li id="liRelDFC" class="     ">
+									          <h:commandLink    style="    padding-top: 10px;"   rendered="#{(utilBean.usuarioLogado.perfilUsuario.zzRelFinanceiroFluxo)}"
+									          	value="#{msg.label_demonstracao} #{msg.label_fluxo_caixa}"  
+												         	title="#{msg.label_demonstracao} #{msg.label_fluxo_caixa} (#{msg.label_sigla_dfc})"	
+												         	action="#{relatorioBean.prepararFiltro}" >
+										     	 <f:setPropertyActionListener target="#{relatorioBean.tipoRelatorio}" value="dfc"/>
+											 </h:commandLink>
+								  </li>	
+								  
+						 
+								    <li id="liRelCapNegociacao" class="     ">
+								           <h:commandLink    style="    padding-top: 10px;"   rendered="#{(utilBean.usuarioLogado.perfilUsuario.zzRelCapNegociacao)}"
+								            action="#{relatorioBean.navegarRelCapNegociacao}" 
+								                  value="#{msg.label_capacidade_de_negociacao}" title="#{msg.label_capacidade_de_negociacao} (#{msg.label_acrescimos_descontos})"  >   
+										      </h:commandLink> 
+							     </li>
+					  
+								    <li id="liRelOs" class="     ">
+								      <h:commandLink    style="    padding-top: 10px;"   rendered="#{utilBean.usuarioLogado.perfilUsuario.zzRelUsoRecursos}"
+								      	value="#{msg.label_uso_recursos_os}"  disabled="false" action="#{ordemServicoBean. prepararFiltroRelOs}" > 
+																 <f:setPropertyActionListener target="#{relatorioBean.tipoRelatorio}" value="rel_os"/>
+																  <f:setPropertyActionListener target="#{relatorioBean.filtrado}" value="false"/>
+															   <f:setPropertyActionListener target="#{relatorioBean.listaCamposExibidosTabela}" value=""/>
+															     <f:setPropertyActionListener target="#{relatorioBean.tipoItem}" value="cc_setor_default"/> 
+												 
+												 	 </h:commandLink>   </li>	
+							  	 
+								  <li id="liRelBalanco" class="     ">  <!--  ARRUMAR  @@@@@@@ -->
+									          <h:commandLink     style="    padding-top: 10px;" 
+									          rendered="#{(utilBean.usuarioLogado.perfilUsuario.zzRelFinanceiroBalanco) and false}"
+									          	value="#{msg.label_balanco_patrimonial}"  
+												         		action="#{relatorioBean.prepararFiltro}" >  
+											    	 <f:setPropertyActionListener target="#{relatorioBean.tipoRelatorio}" value="balanco"/>
+											 </h:commandLink>
+								  </li>	
+								 		
+							 	 
+								    <li id="liRelImobilizadoIntangivel" class="     ">
+								    <h:commandLink    style="    padding-top: 10px;"  rendered="#{(utilBean.usuarioLogado.perfilUsuario.zzRelFinanceiroAtivo)}"
+								    	value="#{msg.label_patrimonial} #{msg.label_ou} #{msg.label_oficina}" 
+								        title="#{msg.label_ativo} #{msg.label_imobilizado} #{msg.label_ou} #{msg.label_oficina}"  
+														action="#{relatorioBean.prepararFiltro}" > 
+																 <f:setPropertyActionListener target="#{relatorioBean.tipoRelatorio}" value="imobilizado_intangivel"/>
+																  <f:setPropertyActionListener target="#{relatorioBean.agrupar}" value="false"/>
+								 	 </h:commandLink></li>			
+					 				 
+					 		 		
+				 
+						 
+				         <li class="nav-header margemSupC"  >
+							 <h:outputText value="#{msg.label_estrutura} #{msg.label_organizacional}"  styleClass="margemEsq negrito"
+							  rendered="#{(utilBean.usuarioLogado.perfilUsuario.zzRelEstruturaOrganizacional)}"   /> 
+				         </li>			
+							 	   <hr style="margin-bottom: 5px; margin-top:5px;"/>						  
+							 	      <li id="liRelUnOrg" class="      ">
+										    <h:commandLink	 style="    padding-top: 10px;"  
+										       rendered="#{(utilBean.usuarioLogado.perfilUsuario.zzRelEstruturaOrganizacional)}"
+										      value="#{msg.label_unidade} #{msg.label_de} #{msg.label_negocio}"  
+																action="#{relatorioBean.prepararRelOrganizacional}" > 
+																		 <f:setPropertyActionListener target="#{relatorioBean.tipoRelatorio}" value="unidade_negocio"/>
+																 </h:commandLink> </li>	
+					    	     
+			         
+									     	
+				                          
+	                                         </ul>
+	                        
+	                        </c:if>
+	                        </li>	
+							<li class="divider-vertical"></li>		 
+			   </c:if>
+				 
+				 </ul>
+						 
+								
+				  	<ul class="nav navbar-nav navbar-right" style="margin-right: 10px;" >
+												   
+												   
+							<sec:authorize ifAnyGranted="ROLE_OWNER">	
+							
+							 
+							   
+										 <li class="dropdown" id="liAdmin">
+										 <a href="#" class="dropdown-toggle    "
+											data-toggle="dropdown" 	> 
+											<i class="fa fa-gears icon-white" title="#{msg.label_administracao}" id="iconeAdmin"/>
+											  <h:outputText value="Admin" styleClass="hidden-md hidden-lg"/> 
+											<h:outputText value="  " styleClass=" hidden-md hidden-sm" /> <span class="caret"></span></a>
+										 <ul class="dropdown-menu">																													 
+												
+													 <c:if test="#{utilBean.usuarioLogado.perfilUsuario.admCliente.contains('R')}">	 																 
+																<li id="liUsuariosOnlineHead"><h:commandLink style="padding-top: 7px;"  
+																			action="#{usuarioBean.exibirListaUsuariosOnlineMenu}" >
+																			 <i class="fa fa-users margemDir"/>	
+																			 <h:outputText  value=" #{msg.title_usuarios} #{msg.label_online_minusculo}" />
+																			 
+																			 <f:setPropertyActionListener target="#{exportBean.tituloRelatorio}" 
+													           			    value="#{msg.label_relatorio} #{msg.label_de} #{msg.title_usuarios} #{msg.label_online_minusculo}" />	  
+													     	        </h:commandLink></li>
+													</c:if> 
+													     	        
+												  <c:if test="#{utilBean.usuarioLogado.perfilUsuario.admUsuarioOnline.contains('R')}">	 
+														      	        <li id="liCadClienteHead"><h:commandLink style="padding-top: 7px;"  
+																			action="#{clienteBean.exibirListaClientesMenu}" >
+																			 <i class="fa fa-briefcase margemDir"/>	
+													     	               <h:outputText  value="#{msg.link_clientes}" /></h:commandLink>
+													     	          </li>
+														</c:if>
+														
+												  <c:if test="#{utilBean.usuarioLogado.perfilUsuario.admEmpresasCadastradas.contains('R')}">	 										
+																   <li id="liEmpresasCadastradasHead"><h:commandLink style="padding-top: 7px;"  
+																			action="#{mapaBean.exibirListaEmpresasClientesMenu}" >
+																			 <i class="fa fa-map-marker  margemDir"/>	
+													     	               <h:outputText  value="#{msg.label_fazendas}" />
+													     	       </h:commandLink></li>								
+														</c:if>	
+														
+										
+										
+										 				 <hr style="margin-bottom:10px; margin-top:5px;"/>   	
+														
+														
+														
+										 <c:if test="#{utilBean.usuarioLogado.perfilUsuario.admBackOfficeComunicacao.contains('R')}">	 										
+											     <li id="liBackOfficeComunicacaoHead"> 
+													  <h:outputLink style="padding-top: 7px;"
+									                        value="#{request.contextPath}/pages/admin/comunicacao/listarBackOfficeComunicacao.html?faces-redirect=true">    
+															       <i class="fa   fa-bullhorn  margemDir "/>	
+										                           <h:outputText  value="#{msg.label_comunicacao}" />
+											           </h:outputLink>   
+													  </li>								
+											 </c:if>	
+											 
+											  <c:if test="#{utilBean.usuarioLogado.perfilUsuario.admFuncoesBackOffice.contains('R')}">	 										
+											     <li id="liBackOfficeHead"> 
+													  <h:outputLink style="padding-top: 7px;"
+									                        value="#{request.contextPath}/pages/admin/backoffice/listarFuncionalidadesBackOffice.html?faces-redirect=true">    
+															       <i class="fa   fa-heartbeat  margemDir "/>	
+										                           <h:outputText  value="BackOffice" />
+											           </h:outputLink>   
+													  </li>								
+											 </c:if>	
+														
+														
+														
+												 	
+																																			
+				  					   </ul>
+									</li> 
+						  </sec:authorize>	
+						  
+					 
+						  
+		 
+							 
+							   <c:if test="#{utilBean.usuarioLogado.perfilUsuario.acessoModuloConfiguracao}">	
+							      	<li class="divider-vertical"></li> 
+ 
+										<li class="dropdown" id="liConfiguracoes"><a href="#" class="dropdown-toggle "
+											data-toggle="dropdown" 	> 
+											<i class="glyphicon glyphicon-cog icon-white" 
+											id="iconeConfiguracao" title="#{msg.menu_configuracoes}"></i>
+											<h:outputText value=" #{msg.menu_configuracoes}"  
+											     styleClass="hidden-sm hidden-lg hidden-md"/><span class="caret"></span></a>
+										
+								  
+													<ul class="dropdown-menu">
+														 
+														   
+														 <c:if test="#{utilBean.usuarioLogado.perfilUsuario.configuracoesContaCliente.contains('R')}">
+														 		<li id="liCfgContaHead" ><h:commandLink style="padding-top: 7px;"
+																			action="#{clienteBean.navegarDetalhesConta}" >
+																	    <i class="fa fa-id-card-o margemDir"/>	
+													     	            <h:outputText  value="#{msg.label_minha} #{msg.label_conta}" />
+																</h:commandLink>
+																 </li>
+															</c:if>
+															
+														
+															
+															 <c:if test="#{utilBean.usuarioLogado.perfilUsuario.configuracoesUsuario.contains('R') or 
+															              utilBean.usuarioLogado.perfil eq 'Administrador'}" > 
+																 <li id="liCfgUsuariosHead"><h:commandLink style="padding-top: 7px;"
+																			action="#{usuarioBean.exibirListaUsuariosMenu}" >
+																		 <i class="fa fa-users margemDir"/>	
+													     	            <h:outputText value="#{msg.title_usuarios}"/>
+																</h:commandLink>
+																 </li>
+															</c:if> 
+															
+															
+															
+															    
+															 <c:if test="#{utilBean.usuarioLogado.perfilUsuario.configuracoesPerfil.contains('R')}">	 
+																 <li  id="liCfgPerfilHead" ><h:commandLink	 style="padding-top: 7px;"	action="#{usuarioBean.exibirListaPerfis}">
+																	         <i class="glyphicon glyphicon-check margemDir"/>	
+													     	            <h:outputText value="#{msg.label_perfis} #{msg.label_de} #{msg.label_acesso_minusculo}"/>
+													     	       	</h:commandLink>
+																	</li> 
+																</c:if>
+																
+																		 <c:if test="#{utilBean.usuarioLogado.perfilUsuario.configuracoesLog.contains('R')}">	 
+																 <li id="liCfgLogHead" ><h:commandLink style="padding-top: 7px;"
+																			action="#{usuarioBean.prepararLog}" >
+																		   <i class="fa fa-file-text-o margemDir"/>	
+													     	            <h:outputText value= "#{msg.label_log} #{msg.label_acoes} (#{msg.label_usuario})"/> 
+																</h:commandLink>
+																 </li>
+															</c:if>	
+															
+															
+													
+															
+															 
+															 
+														  
+															 <c:if test="#{utilBean.usuarioLogado.perfilUsuario.configuracoesConta.contains('R')}">	 		
+																     <li id="liCfgContasFinHead"><h:commandLink  style="padding-top: 7px;" 	
+																      	action="#{parceiroBean.exibirListaContasFinanceirasMenu}" > 
+																						   <i class="fa fa-university  margemDir"/>	
+													     	            <h:outputText value="#{msg.link_contas_financeiras}"/> 
+															 	</h:commandLink></li>			 
+																
+															</c:if> 	
+															
+															
+															 <hr style="margin-bottom:20px; margin-top:5px;"/>   	
+															
+															
+															  <c:if test="#{utilBean.usuarioLogado.perfilUsuario.configuracoesListasPersonalizadas.contains('R')}">	 		
+																       <li id="liCfgListasPersonalizadasHead">
+																       <h:commandLink  style="padding-top: 7px;"
+																        action="#{ordemServicoBean.exibirListasPersonalizadas(true)}" > 
+																			  <i  class="fa fa-list-ul margemDir"/>    			 
+													     	            <h:outputText value="#{msg.label_listas} #{msg.label_personalizadas}"/> 
+															         	</h:commandLink>    </li>			 
+																
+															</c:if> 		
+															 
+														   
+															 
+															 <c:if test="#{utilBean.usuarioLogado.perfilUsuario.configuracoesPlanoContas.contains('R')}">	 		
+																       <li id="liCfgPlanoContasHead"><h:commandLink  style="padding-top: 7px;"
+																        action="#{planoContasBean.exibirListaPlanoContas}" > 
+																						   <i class="fa fa-list-alt  margemDir"/>	
+													     	            <h:outputText value="#{msg.label_plano_de_contas}"/> 
+															 	</h:commandLink></li>			 
+																
+															</c:if> 
+															
+															 <hr style="margin-bottom:10px; margin-top:5px;"/>   	
+															
+															
+															 <c:if test="#{utilBean.usuarioLogado.perfilUsuario.configuracoesIntegracoes.contains('R')}">	 
+														 							
+																   <li id="liIntegracoesHead"><h:commandLink style="padding-top: 7px;"  
+																			action="#{clienteBean.exibirListaIntegracoesMenu}" >
+																			 <i class="fa fa-puzzle-piece  margemDirC"/>	
+													     	               <h:outputText  value="#{msg.label_integracoes}" />
+													     	       </h:commandLink></li>								
+														</c:if>			 
+														 
+													</ul> 
+											</li>
+									</c:if>		
+						<!--   </sec:authorize> -->
+						  
+						
+								  
+								  	<li class="divider-vertical"></li> 
+								  	
+								    <li class="dropdown" id="liPreferencias">
+									     <a href="#" class="  dropdown-toggle"
+										data-toggle="dropdown"> 
+										
+									
+									  <h:outputText    value=" " 
+												   rendered="#{utilBean.usuarioLogado.perfilUsuario.zzHomeAlertas and alertaBean.nroAlertasNaoLidos gt 0}"
+							                         styleClass="      badge   fundoVermelho"
+							                          style="margin-top: -2px; margin-left:  px;      border-radius: 90px;   padding: 5px;"
+							          /> 	 <!-- position: absolute; -->
+							                       
+							                       
+								    <h:graphicImage value="#{usuarioBean.getS3Url(utilBean.usuarioLogado.foto)}"  
+					                 id="avatarIco" style="height:35px; width:35px;"    cache="true"  
+					                 title="${USUARIO_LOGADO.primeiroNome}"
+								     rendered="#{not empty utilBean.usuarioLogado.foto}"  
+								     styleClass="img-circle img-responsive img-thumbnail  img-avatar normalizeBorderAvatar"
+								          />
+								     
+								     	<c:if test="#{empty utilBean.usuarioLogado.foto}">
+										         <i class="glyphicon glyphicon-user icon-white "
+										            title="${USUARIO_LOGADO.primeiroNome}"></i> <h:outputText value=" " />
+										  </c:if>     
+										   
+										 <h:outputText value="${USUARIO_LOGADO.primeiroNome} " styleClass="hidden-sm hidden-lg hidden-md" 
+										               rendered="true" />
+										          
+										         
+							                        
+							 
+							 
+										          
+									 	<span 	class="caret"></span></a>
+										<ul class="dropdown-menu">
+											
+											<li id="liPreferenciasUsuario"> 
+											        <h:commandLink	style="padding-top: 7px;"
+											            action="#{usuarioBean.exibirPreferenciasUsuarioMenu}">
+										                <i class="fa fa-wrench icon-white margemDir"/>												     
+												        <h:outputText value="#{msg.label_minhas} #{msg.label_preferencias}"/> 
+										         </h:commandLink> 
+										          <hr style="margin-bottom:10px; margin-top:0px;"/> 
+										      </li>
+										      
+											     
+											  <li id="liAlerta"> 
+											       <h:commandLink	style="padding-top: 7px;" 
+											                    rendered="#{utilBean.usuarioLogado.perfilUsuario.zzHomeAlertas}"
+											                    action="#{alertaBean.exibirAlertasUsuario}">
+											             	  <i class="fa fa fa-bell     margemDirC   "/>	
+											      
+											       <h:outputText  title="#{alertaBean.nroAlertasNaoLidos} notificações não lidas"   
+											        value="#{alertaBean.nroAlertasNaoLidos}" 
+												   rendered="#{alertaBean.nroAlertasNaoLidos gt 0}"
+							                         styleClass="     badge fundoVermelho alertMsgIco  fonteP    "
+							                       style="vertical-align: text-bottom; padding: 4px;   padding-left: 6px;  padding-right: 6px;"    /> 				 
+												   
+												      <h:outputText value="#{msg.label_minhas} #{msg.label_notificacoes} " 
+												      styleClass="margemEsqC  "/>  
+												  	</h:commandLink>
+														 
+											   </li>
+										       			
+										       			    
+										      
+										      <li id="liChat"> 
+											      <h:outputLink   rendered="#{utilBean.usuarioLogado.perfilUsuario.zzHomeChat}"
+											            style="padding-top: 7px;"      value="#{request.contextPath}/pages/outros/chat/chat.html" > 
+														  <i class="fa fa-comments-o  margemDir   "/>	
+														  	Chat  				 
+												              </h:outputLink>  
+										          <hr style="margin-bottom:10px; margin-top:0px;"/> 
+										      </li>
+										       							     
+									 
+									 	    <li id="liClima">
+											    <h:outputLink style="padding-top: 7px;"   
+											                      value="#{request.contextPath}/pages/outros/clima.html?faces-redirect=true"
+											                     rendered="#{utilBean.usuarioLogado.perfilUsuario.zzHomeClima}"  >    
+												     <i  class="fa fa-cloud icon-white margemDir"    /> 
+												    <h:outputText value="#{msg.label_meu} #{msg.label_clima}"/> 
+											   </h:outputLink>  
+											 </li>
+											
+											<li  id="liCotacoes">
+											    <h:outputLink style="padding-top: 7px;"
+											            value="#{request.contextPath}/pages/outros/cotacoes.html?faces-redirect=true"
+											                     rendered="#{utilBean.usuarioLogado.perfilUsuario.zzHomeCotacoes}"  >    
+												     <i class="fa fa-line-chart icon-white margemDir"/>												     
+												    <h:outputText value="#{msg.label_minhas} #{msg.label_cotacoes}"/>
+												   
+											   </h:outputLink>  
+											 </li>
+											 
+											 
+											   <li  id="liNoticias"><h:outputLink	   style="padding-top: 7px;"
+										            rendered="#{not empty usuarioBean.usuarioLogado.prefNoticia and utilBean.usuarioLogado.perfilUsuario.zzHomeNoticias}"
+										           value="#{request.contextPath}/pages/outros/noticias.html?faces-redirect=true"   >
+										           <i  class="fa fa-rss  margemDir"        />   
+												     <h:outputText value="#{msg.label_minhas} #{msg.label_noticias}" /> 
+										         </h:outputLink> 
+										         </li> 
+										         
+										         
+										        <li  id="liPodcast"><h:outputLink	   style="padding-top: 7px;"
+										            rendered="#{utilBean.usuarioLogado.perfilUsuario.zzHomePodcast}"
+										            value="#{request.contextPath}/pages/outros/podcasts.html?faces-redirect=true"   >
+										           <i  class="fa fa-podcast   margemDir"        />   
+												     <h:outputText value="Podcasts" /> 
+												     	<h:outputText value="Novo!" styleClass="label label-danger fontePequena margemEsqC"  
+																	  rendered="#{false and utilBean.mostrarAlertaDeVersaoNova}" />  
+												     </h:outputLink>  
+										            <hr style="margin-bottom:20px; margin-top:5px;"/> 
+										     </li>
+										     
+										     
+										      <li  id="liDocumentos"> 
+											   <h:commandLink	style="padding-top: 5px;" rendered="#{(utilBean.usuarioLogado.perfilUsuario.zzHomeDocumentos.contains('R'))}"
+											            	action="#{documentoBean.exibirMeusDocumentos}">
+													  	   <i class="fa fa-folder-open-o margemDir"/>		
+													      <h:outputText value="#{msg.label_meus} #{msg.label_documentos}" />
+											   	</h:commandLink>
+													     	        
+										 	 </li> 
+										    
+											 
+											 <li  id="liCalendario">
+											    <h:outputLink style="padding-top: 5px;"
+											     value="#{request.contextPath}/pages/outros/calendario.html?faces-redirect=true"
+											                  rendered="#{(utilBean.usuarioLogado.perfilUsuario.zzHomeCalendario.contains('R'))}" >    
+												     <i class="glyphicon glyphicon-calendar    margemDir"/>												     
+												     <h:outputText value="#{msg.label_meu} #{msg.label_calendario}" />
+											   </h:outputLink>  
+											 </li>
+											 
+											 
+											  <li  id="liMapa"> 
+											   <h:commandLink	style="padding-top: 5px;" rendered="#{(utilBean.usuarioLogado.perfilUsuario.cadastroEmpresa.contains('O'))}"
+											            	action="#{mapaBean.navegarViewMapa}">
+													  	   <i class="fa fa-map-o margemDir"/>		
+													      <h:outputText value="#{msg.label_meu} #{msg.label_mapa}" />
+											   	</h:commandLink>
+													     	        
+										 	 </li> 
+											 
+											 
+											
+											
+											<li >
+											     <hr style="margin-bottom:20px; margin-top:5px;"/> 
+											     
+											     <h:commandLink style="padding-top: 5px;" action="#{loginBean.logout}" 
+											     immediate="true"   >    
+												     <i class="glyphicon glyphicon-off   margemDir"/>												     
+												     <h:outputText value="#{msg.button_logout}" />
+											   </h:commandLink>  
+											 </li>
+										</ul>
+								   </li>
+								   
+								   
+								   
+								    <!--  inicio rodape no menu - somente para mobile -->
+						  	<li id="liRodape"
+								   	     class="dropdown hidden-lg hidden-md hidden-sm"  >
+								   	     <a href="#" class="dropdown-toggle " 	data-toggle="dropdown" 	> 
+											<i class="glyphicon glyphicon-star-empty icon-white" id="iconeAdmin"/><h:outputText value=" #{msg.label_outros}"/><span class="caret"></span></a>
+										 <ul class="dropdown-menu">																													 
+													 <li id="liVersaoOculto" style="padding-top: 0px">
+														     
+														      <h:outputLink value="#{request.contextPath}/pages/rodape/versao/versionamento.html"
+														      				 id="versao" 
+														      				 title="#{msg.link_versao} #{msg.label_atualizada_minusculo} #{msg.label_em} #{utilBean.dataAtualizacaoAplicacao}"> 
+																		 	<i class="fa fa-list-ol icon-white "></i> 
+																		 	<h:outputText value=" #{msg.label_versionamento} "  />																		 	 
+																			<h:outputText value="Novo!" styleClass="label label-danger fontePequena"  
+																			              rendered="#{utilBean.mostrarAlertaDeVersaoNova}" />  
+															</h:outputLink></li>     
+											 
+										 
+												  <li id="liAjudaOculto" style="padding-top: 0px">
+															  <h:outputLink	 id="ajudaRodape"  
+													           value="#{request.contextPath}/pages/rodape/ajuda/ajuda.html"  >
+																      <i      class="glyphicon glyphicon-question-sign icon-white  "
+																   style="margin-top: 1px;"  />	 
+																   <h:outputText value=" #{msg.label_ajuda} "/>	     
+								                       </h:outputLink>       	 
+								    	           </li>
+															        
+												   <li id="liSuporteOculto" style="padding-top: 0px">
+																   <h:commandLink	 id="suporte"  
+																						 action="#{utilBean.navegarPagSuporte}"  >
+																				<i id="iconeSuporte" 
+																				   class="fa fa-comments-o icon-white  "     />	 
+																				   <h:outputText value=" #{msg.label_suporte}"/>	  
+																	  </h:commandLink>       	 
+															        </li>
+															        
+													 <li id="liTermosOculto" style="padding-top: 0px">
+														      <h:outputLink value="#{request.contextPath}/pages/rodape/termos/termosServico.html"
+							      			               	 id="termos" title="#{msg.link_termos} #{msg.label_de} #{msg.label_servico} ">
+																  <i  class="fa fa-legal "/> 
+																  <h:outputText value=" #{msg.link_termos} #{msg.label_de} #{msg.label_servico}" 
+																    title="#{msg.link_termos} #{msg.label_de} #{msg.label_servico}"
+																	   />
+															</h:outputLink></li>  
+															
+													<li id="liWebsiteOculto" style="padding-top: 0px">
+														      <h:outputLink target="_blank" title="https://www.agrosolutions.agr.br"
+																value="https://www.agrosolutions.agr.br" id="website">
+																 <i class="glyphicon glyphicon-share-alt icon-white  "  /> <h:outputText value=" #{msg.link_website} " /> 
+															</h:outputLink></li>														
+				  					   </ul>
+									 
+									 
+								   </li><!--  fim rodape -->
+								   
+								   <li class="hidden-lg hidden-md hidden-sm centro"> 
+											  
+											    
+									         <h:outputLink value="#{request.contextPath}/pages/rodape/versao/versionamento.html"
+							      				 id="versaoNovaMobile" 
+							      				 title="#{msg.link_versao} #{msg.label_atualizada_minusculo} #{msg.label_em} #{utilBean.dataAtualizacaoAplicacao}"> 
+											
+                                                 <h:outputText id="direitos"  styleClass="break-word margemEsq" 
+																			value=" #{msg.label_licenciado_para} #{utilBean.usuarioLogado.cliente.empresa} "
+																			style="padding-left:0px; color: #999;"  /> 	   
+
+                                                 <h:outputText value=" #{utilBean.versaoAtual} " 
+										       style="padding-left:0px; color: #999;" styleClass="margemEsqV break-word"  />
+												
+												<h:outputText value="Novo!" styleClass="label label-danger fontePequena"  
+												              rendered="#{utilBean.mostrarAlertaDeVersaoNova}" />  
+								            </h:outputLink>
+								
+								  	           
+											 </li>
+											 
+							 
+								 
+								     
+						 </ul>
+							
+							 
+								
+							</div>
+							
+							 
+							
+							
+						<!-- </div> container  -->
+					<!-- </div> navbar-inner -->
+				</div>
+			</h:form>
+		</ui:composition>
+	</f:view>
+</h:body>
+</html>
+
+
+<!-- 
+
+	  <c:if test="#{false and (utilBean.usuarioLogado.cliente.id == 1 or 
+			  utilBean.usuarioLogado.cliente.classificacao == 'Back office') and 
+			  utilBean.usuarioLogado.perfilUsuario.zzHomeChat}">	 													
+							 <li class="divider-vertical"></li>
+					
+					
+					 <li id="liChat" style="padding-top: 0px"  class="dropdown"> 
+					 
+					 
+				 <a href="#" class="dropdown-toggle " 	data-toggle="dropdown" 	> 
+						 
+						  <i   title="Chat"    class="fa fa-comments-o   " 	   style="margin-top: -5px;"  />	 
+										 <h:outputText value=" Chat"  rendered="false"
+										  styleClass="hidden-sm hidden-md"/><span class="caret"></span></a>
+										 
+						 <ul class="dropdown-menu">
+										
+							 <li >  <center><h:outputLink  styleClass="negrito "
+							      value="#{request.contextPath}/pages/outros/chat.html" > 
+												Chat 
+									 <i class="      fonteP  " 
+									    style="padding-right:10px; opacity:0.4; float: right;" title="Maximizar" 
+									     >
+										 <i class="glyphicon glyphicon-fullscreen icon-black"></i>
+							          </i>  		
+												
+								    </h:outputLink> 
+							  <hr style="margin-bottom:0px; margin-top:5px;"/></center> 
+							 </li>			
+						
+							 #{usuarioBean.exibirListaUsuariosOnlineCliente} 
+								utilBean.usuarioLogado.cliente.listaUsuariosCliente	 	   
+							 
+							  <ui:repeat value="#{usuarioBean.exibirListaUsuariosOnlineCliente}" 
+						          			 var="uChat" varStatus="status"   >							       
+							      
+							   <li class="#{uChat.id == utilBean.usuarioLogado.id ? 'ocultar' : ''}"> 
+							    
+							    
+							    <h:commandLink  style="height: 40px !important; margin-top: 8px !important;  padding-top: 10px; vertical-align: middle;"
+												 	action="#{clienteBean.navegarDetalhesConta}" >
+								
+							   <h:outputText  value=" " rendered="#{uChat.online}"
+							                styleClass=" margemDirC badge verde "   title="Usuário online"
+								          style="margin-top:;     border-radius: 90px; 
+								           padding: 5px;" /> 	
+													  
+							 <h:outputText  value=" " 
+							 title="Usuário ativo #{utilBean.itemProxVencer(uChat.dataUltimoAcesso , currentDate  ,   1  ) ? 'nas últimas 24 horas' : 
+							 utilBean.itemProxVencer(uChat.dataUltimoAcesso , currentDate  ,   3  )  ? 'nos últimos 3 dias'  : 
+							 utilBean.itemProxVencer(uChat.dataUltimoAcesso , currentDate  ,   7  )  ?  'nos últimos 7 dias' : 'há mais de 7 dias'  }"
+							 rendered="#{not uChat.online}"
+							 styleClass=" margemDirC badge 
+							 #{utilBean.itemProxVencer(uChat.dataUltimoAcesso , currentDate  ,   1  ) ? 'fundoAmarelo' : 
+							 utilBean.itemProxVencer(uChat.dataUltimoAcesso , currentDate  ,   3  )  ? 'fundoMarrom'  : 
+							 utilBean.itemProxVencer(uChat.dataUltimoAcesso , currentDate  ,   7  )  ?  '' : 'fundoVermelho'  }"  
+							 style="margin-top:;     border-radius: 90px; 
+							 padding: 5px;" /> 	
+							 
+							     <h:graphicImage value="#{usuarioBean.getS3Url(uChat.foto)}"  
+					                 id="avatarIco" style="height:35px; width:35px;"    cache="true"  
+					                 title="#{uChat.primeiroNome}"
+								     rendered="#{not empty uChat.foto}"  
+								     styleClass="img-circle img-responsive img-thumbnail  img-avatar"     />
+								     
+								      
+								 <div style="height:35px; width:35px;" 
+								      class="img-circle img-responsive img-thumbnail  img-avatar #{not empty uChat.foto ? 'ocultar' : ''}"> 
+								 <i class=" glyphicon glyphicon-user  margemEsq margemSup  "
+								  title="${uChat.primeiroNome}" ></i>  
+									</div>    
+										  
+								    <h:outputText  value="#{uChat.primeiroNome}"
+							                       title="#{uChat.nome}"     />	 
+								  </h:commandLink>
+								  	</li>
+								  
+								   
+									<hr class="#{uChat.id == utilBean.usuarioLogado.id ? 'ocultar' : ''}"
+									     style="margin-bottom:5px; margin-top:5px;"/>
+								  	 
+						        </ui:repeat>
+												 
+									</ul> 
+							</li>
+		 	</c:if>				    
+							
+	  -->								  
+						  
+ <!-- 	<sec:authorize ifAnyGranted="ROLE_OWNER, ROLE_ADMIN, ROLE_SUPERVISOR">    
+  SUBMENU!!!  <li class="divider"></li>
+														 	 	 
+								 	<li class="dropdown-submenu"> <a href="#"><h:outputText value="#{msg.link_financeiro}"/>  
+																       <h:outputText value=" "  />  
+																       <i class="glyphicon glyphicon-chevron-right"></i>
+																     </a>
+																 
+																   
+																		<ul class="dropdown-menu"> 
+																			<li> &nbsp;</li>
+																			<li><h:commandLink value="msg.k" 	action="" /></li>																			  
+																			 <li> &nbsp;</li>
+																		</ul>
+																		
+																 
+				 	</li> -->

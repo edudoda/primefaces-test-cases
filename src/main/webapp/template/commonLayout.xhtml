@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"  xmlns:c="http://java.sun.com/jsp/jstl/core"
+	    xmlns:p="http://primefaces.org/ui"  >
+<h:head >
+	   
+	 
+		     <title>PF 12 TEST</title> 
+		       
+			  
+      
+					  
+</h:head>
+
+   
+<h:body>  
+
+ <f:view contentType="text/html; charset=ISO-8859-1" encoding="ISO-8859-1">
+  
+    
+	   
+		 
+	<div id="page">
+	
+	 
+		<div id="header" class="header"  align="center"  >
+			<ui:insert name="header"> 
+				<div id="menuDefault"  >
+				   HEADER
+				 </div> 
+			     
+			</ui:insert> 
+		</div>
+
+		<div class="myContainer" >
+			<div class="row" style="margin-top: 10px;   margin-bottom: 15px;">
+			   
+			      <h:panelGroup   id="contentMsg" layout="block" style="margin-bottom: 5px;" >
+					      
+	                    <p:growl id="growl" showDetail="true" showSummary="false" widgetVar="wGrowl" 
+	                             redisplay="false" 
+					             severity="info,warn,error"  sticky="false" life="7000"  />    
+					  
+				         
+					<ui:insert name="content"  ></ui:insert>
+					
+				</h:panelGroup>
+			</div>
+		</div>
+
+       
+		<div id="footer" class="footer " align="center"  >
+			  <ui:insert name="footer">
+					FOOTER
+				</ui:insert> 
+			
+		</div>
+	</div>
+	
+	
+	  
+	
+	       
+	</f:view>
+	
+</h:body>
+</html> 
